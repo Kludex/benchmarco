@@ -1,5 +1,6 @@
 name: Benchmarco
 description: A performance bot for GitHub hosted repositories! ⚡️
+author: Kludex
 
 inputs:
   script:
@@ -10,7 +11,23 @@ inputs:
     description: Comparison strategy to use - "main" or "tag".
     required: true
 
+  token:
+    description: GitHub token to use.
+    required: true
+
 runs:
   using: composite
   steps:
     - uses: actions/checkout@v2
+
+    - name: Install requirements
+      run: python -m pip install -r ${{ github.action_path }}/requirements.txt
+      shell: bash
+
+    - name: Run benchmark
+      run: python ${{ github.action_path }}/main.py
+      shell: bash
+      env:
+        SCRIPT: ${{ inputs.script }}
+        COMPARE: ${{ inputs.compare }}
+        GITHUB_TOKEN: ${{ inputs.token }}
