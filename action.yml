@@ -1,0 +1,16 @@
+name: Benchmarco
+description: A performance bot for GitHub hosted repositories! ⚡️
+
+inputs:
+  script:
+    description: Path of the script to run.
+    required: true
+
+  compare:
+    description: Comparison strategy to use - "main" or "tag".
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@v2
