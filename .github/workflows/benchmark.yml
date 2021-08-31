@@ -1,0 +1,18 @@
+name: Benchmark
+
+on:
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Benchmark
+        uses: ./
+        with:
+          script: script.py
+          compare: tag
+          token: ${{ secrets.GITHUB_TOKEN }}
